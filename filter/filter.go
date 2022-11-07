@@ -1,5 +1,5 @@
 package t9filter
 
-func Filter(contacts []Contact, searchValue string) {
+func Filter(contacts map[string]string, searchValue string) {
 
 }

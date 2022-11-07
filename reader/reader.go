@@ -6,34 +6,20 @@ import (
 	"os"
 )
 
-type Contact struct {
-	Name        string
-	PhoneNumber string
-}
-
-func ReadAllContacts() []Contact {
+func ReadAllContacts() map[string]string {
 	lines := readFile()
 
 	i := 0
 	j := 0
-	var contacts []Contact
+	contacts := make(map[string]string)
 	for range lines {
-		contact := convertContact(lines[i], lines[i+1])
-		contacts[j] = *contact
+		contacts[lines[i]] = lines[i+1]
 
 		i += 2
 		j++
 	}
 
 	return contacts
-}
-
-func convertContact(name string, phoneNumber string) *Contact {
-	var contact Contact
-	contact.Name = name
-	contact.PhoneNumber = phoneNumber
-
-	return &contact
 }
 
 func readFile() []string {
