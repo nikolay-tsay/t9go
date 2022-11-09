@@ -6,34 +6,34 @@ import (
 	"os"
 )
 
-func ReadAllContacts() map[string]string {
-	lines := readFile()
+func ReadAllContacts(path string) *map[string]string {
+	lines := readFile(path)
 
 	i := 0
-	j := 0
 	contacts := make(map[string]string)
 	for range lines {
 		contacts[lines[i]] = lines[i+1]
 
+		if i+2 >= len(lines) {
+			break
+		}
+
 		i += 2
-		j++
 	}
 
-	return contacts
+	return &contacts
 }
 
-func readFile() []string {
-	file, err := os.Open("sample.txt")
+func readFile(path string) []string {
+	file, err := os.Open(path)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	i := 0
 	var lines []string
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		lines[i] = scanner.Text()
-		i++
+		lines = append(lines, scanner.Text())
 	}
 
 	if err := scanner.Err(); err != nil {

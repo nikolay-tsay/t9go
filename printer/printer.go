@@ -6,20 +6,22 @@ import (
 	"github.com/nikolay-tsay/t9reader"
 )
 
-func PrintAllContacts() {
-	contacts := t9reader.ReadAllContacts()
+const path = "sample.txt"
 
-	for name, phone := range contacts {
+func PrintAllContacts() {
+	contacts := t9reader.ReadAllContacts(path)
+
+	for name, phone := range *contacts {
 		fmt.Printf("%s, %s\n", name, phone)
 	}
 }
 
-func PrintFilteredContacts(searchValue string) {
-	contacts := t9reader.ReadAllContacts()
+func PrintFilteredContacts(searchValue int) {
+	contacts := t9reader.ReadAllContacts(path)
 
 	t9filter.Filter(contacts, searchValue)
 
-	for name, phone := range contacts {
+	for name, phone := range *contacts {
 		fmt.Printf("%s, %s\n", name, phone)
 	}
 }
